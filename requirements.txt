@@ -1,0 +1,11 @@
+certifi==2020.12.5
+chardet==4.0.0
+idna==2.10
+pkg-resources==0.0.0
+python-dateutil==2.8.1
+requests==2.25.1
+ripe.atlas.cousteau==1.4.2
+six==1.15.0
+socketIO-client==0.7.2
+urllib3==1.26.4
+websocket-client==0.58.0
