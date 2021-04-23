@@ -8,7 +8,7 @@ import matplotlib.dates as mdates
 start = date(2020, 11, 1)
 stop = date.today()
 
-data = get_data("https://stat.ripe.net/data/atlas-probe-deployment/data.json?", resource="gb") #, starttime=start, endtime=stop)
+data = get_data("https://stat.ripe.net/data/atlas-probe-deployment/data.json?", resource="gb", starttime=start, endtime=stop)
 data = data["data"]["deployments"][0]["deployment"]
 
 df = pd.json_normalize(data)  # Flattens the data

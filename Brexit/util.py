@@ -17,10 +17,12 @@ def get_data(base_url, **kwargs):
     request = requests.get(base_url)
     return request.json()
 
+
 def get_bounding_box(location_df):
     BBox = (location_df.longitude.min(), location_df.longitude.max(),
-             location_df.latitude.min(), location_df.latitude.max())
+            location_df.latitude.min(), location_df.latitude.max())
     return BBox
+
 
 def plot_map(df, title="", image_location="", output_file="", BBox=None):
     # src: https://towardsdatascience.com/easy-steps-to-plot-geographic-data-on-a-map-python-11217859a2db
@@ -36,7 +38,7 @@ def plot_map(df, title="", image_location="", output_file="", BBox=None):
     ax.set_xlim(BBox[0], BBox[1])
     ax.set_ylim(BBox[2], BBox[3])
 
-    plt.gca().set_aspect('equal', adjustable='datalim') # equal step sizes
+    plt.gca().set_aspect('equal', adjustable='datalim')  # equal step sizes
 
     if image_location != "":
         # Generate image on https://www.openstreetmap.org/export
@@ -53,8 +55,11 @@ def plot_map(df, title="", image_location="", output_file="", BBox=None):
     plt.show()
 
 
-def generate_date_plot(df, dates_column_name='date', data_column_name='data', plot_title='', output_file=''):
-    dates = mdates.datestr2num(df[dates_column_name])
+def generate_date_plot(df, date_list=None, dates_column_name='date', data_column_name='data', plot_title='', output_file='', date_2_num=True):
+    if date_list is None:
+        date_list = df[dates_column_name]
+    if date_2_num:
+        dates = mdates.datestr2num(date_list)
 
     # src: https://stackoverflow.com/questions/9627686/plotting-dates-on-the-x-axis-with-pythons-matplotlib
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
@@ -68,4 +73,3 @@ def generate_date_plot(df, dates_column_name='date', data_column_name='data', pl
         plt.savefig(output_file)
 
     plt.show()
-
