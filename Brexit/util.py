@@ -4,7 +4,7 @@ import json
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import matplotlib.dates as mdates
 
 
 def get_data(base_url, **kwargs):
@@ -48,6 +48,23 @@ def plot_map(df, title="", image_location="", output_file="", BBox=None):
         ax.imshow(ruh_m, zorder=0, extent=BBox, aspect='equal')
 
     if output_file != "":
+        plt.savefig(output_file)
+
+    plt.show()
+
+
+def generate_date_plot(df, dates_column_name='date', data_column_name='data', plot_title='', output_file=''):
+    dates = mdates.datestr2num(df[dates_column_name])
+
+    # src: https://stackoverflow.com/questions/9627686/plotting-dates-on-the-x-axis-with-pythons-matplotlib
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+    plt.gcf().autofmt_xdate()  # datums schuin
+
+    plt.plot(dates, df[data_column_name])
+    if plot_title != '':
+        plt.title(plot_title)
+
+    if output_file != '':
         plt.savefig(output_file)
 
     plt.show()
