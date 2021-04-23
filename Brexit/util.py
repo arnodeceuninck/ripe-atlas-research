@@ -22,10 +22,11 @@ def get_bounding_box(location_df):
              location_df.latitude.min(), location_df.latitude.max())
     return BBox
 
-def plot_map(df, title="", image_location="", output_file=""):
+def plot_map(df, title="", image_location="", output_file="", BBox=None):
     # src: https://towardsdatascience.com/easy-steps-to-plot-geographic-data-on-a-map-python-11217859a2db
 
-    BBox = get_bounding_box(df)
+    if BBox is None:
+        BBox = get_bounding_box(df)
 
     fig, ax = plt.subplots(figsize=(8, 7))
 
@@ -34,6 +35,8 @@ def plot_map(df, title="", image_location="", output_file=""):
         ax.set_title(title)
     ax.set_xlim(BBox[0], BBox[1])
     ax.set_ylim(BBox[2], BBox[3])
+
+    plt.gca().set_aspect('equal', adjustable='datalim') # equal step sizes
 
     if image_location != "":
         # Generate image on https://www.openstreetmap.org/export
