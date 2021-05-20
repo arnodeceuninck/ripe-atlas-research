@@ -55,7 +55,7 @@ def plot_map(df, title="", image_location="", output_file="", BBox=None):
     plt.show()
 
 
-def generate_date_plot(df, date_list=None, dates_column_name='date', data_column_name='data', plot_title='', output_file='', date_2_num=True):
+def generate_date_plot(df, date_list=None, dates_column_name='date', data_column_name='data', plot_title='', output_file='', date_2_num=True, xlabel=None, ylabel=None):
     if date_list is None:
         date_list = df[dates_column_name]
     if date_2_num:
@@ -69,7 +69,13 @@ def generate_date_plot(df, date_list=None, dates_column_name='date', data_column
     if plot_title != '':
         plt.title(plot_title)
 
+    if xlabel is not None:
+        plt.xlabel(xlabel)
+    if ylabel is not None:
+        plt.ylabel(ylabel)
+
     if output_file != '':
         plt.savefig(output_file)
+
 
     plt.show()
